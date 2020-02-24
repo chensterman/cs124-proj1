@@ -5,10 +5,10 @@ public class MinHeap {
   public boolean[] visited;
   public static final int FRONT = 1;
 
-  public MinHeap(int maxsize) {
-    this.maxsize = maxsize;
+  public MinHeap() {
+    this.maxsize = 100000000;
     this.size = 0;
-    Heap = new Node[this.maxsize + 1];
+    Heap = new Node[this.maxsize];
     Heap[0] = new Node(0, Integer.MIN_VALUE);
     visited = new boolean[this.maxsize + 1];
   }
@@ -36,7 +36,7 @@ public class MinHeap {
   // Function that returns true if the passed
   // node is a leaf node
   private boolean isLeaf(int pos) {
-    if (pos >= (size / 2) && pos <= size) {
+    if (pos >(size / 2) && pos <= size) {
       return true;
     }
     return false;
@@ -55,7 +55,10 @@ public class MinHeap {
 
     // If the node is a non-leaf node and greater
     // than any of its child
-    if (!isLeaf(pos)) {
+    System.out.println(pos);
+    System.out.println(isLeaf(pos));
+    if (!isLeaf(pos) ) {
+      System.out.println("senpai 1");
       if (Heap[pos].weight > Heap[leftChild(pos)].weight || Heap[pos].weight > Heap[rightChild(pos)].weight) {
 
         // Swap with the left child and heapify
@@ -73,15 +76,29 @@ public class MinHeap {
         }
       }
     }
+
+    // else {
+    //   System.out.println("pos: " + pos + " parent pos: " + parent(pos) + "pos weight: "+ Heap[pos].weight+ "parent pos weight : " +  Heap[parent(pos)].weight);
+
+    //   if(Heap[pos].weight < Heap[parent(pos)].weight) {
+    //     minHeap();
+    //     System.out.println("HELLLLLOOOOO");
+
+    //   }
+
+    // }
   }
 
   // Function to insert a node into the heap
-  public void insert(int index, int weight) {
+  public void insert(int index, double weight) {
     if (visited[index]) {
       for (int i = 1; i <= size; i++) {
         if (index == Heap[i].index) {
           if (weight < Heap[i].weight) {
             Heap[i].weight = weight;
+            System.out.println("REPALCED");
+            minHeap();
+            this.print();
             break;
           }
         }
@@ -101,7 +118,8 @@ public class MinHeap {
       while (Heap[current].weight < Heap[parent(current)].weight) {
         swap(current, parent(current));
         current = parent(current);
-      }
+      }    
+
     }
 
   }
@@ -125,15 +143,16 @@ public class MinHeap {
   public void minHeap() {
     for (int pos = (size / 2); pos >= 1; pos--) {
       minHeapify(pos);
+      System.out.println("AIYA " + pos);
     }
   }
 
   // Function to remove and return the minimum
   // element from the heap
-  public Node extract_max() {
+  public Node extract_min() {
     Node popped = Heap[FRONT];
     Heap[FRONT] = Heap[size--];
-    minHeapify(FRONT);
+    minHeap();
     return popped;
 
   }
