@@ -35,17 +35,23 @@ public class randmst2 {
         }
 
       }
+      System.out.println(i + ": "+total);
     }
     
     return total / numtrials;
   }
 
-  public static void traverse(int numpoints, int numtrials, int dimension) {
+  // public static double traverse(int numpoints, int numtrials, int dimension) {
+  //   if(dimension == 0) {
+  //     return traverse_0(numpoints, numtrials);
+  //   }
+  //   else {
 
-  }
+  //   }
+  // }
   public static void main(String[] arg) 
   { 
-      double averageWeight = traverse_0(100, 5);
+      double averageWeight = traverse_0(65536, 5);
       System.out.println("Average weight:" + averageWeight);
 
   
