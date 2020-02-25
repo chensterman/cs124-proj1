@@ -1,1 +1,1 @@
-make && ./randmst
+java randmst.java
