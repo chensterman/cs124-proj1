@@ -5,9 +5,7 @@ public class randmst2 {
     Random rand = new Random(); //instance of random class
     for(int i = 0; i < numpoints; i++) {
       if(!traversed[i]) {
-        // double r = rand.nextDouble();
-        double r = (rand.nextInt(10));
-        System.out.println("window: " + i+ "testing boys" + r);
+        double r = rand.nextDouble();
         //not too big if r < NUM
         minHeap.insert(i, r);
       }
@@ -22,26 +20,17 @@ public class randmst2 {
     traversed[0] = true;
     MinHeap minHeap = new MinHeap(); 
     minHeap = randomize(minHeap, numpoints, traversed);
-    minHeap.print();
 
-    for(int i=0; i<traversed.length; i++) {
-      System.out.print(traversed[i]);
-    }
+ 
     while (minHeap.size!=0) {
-      for(int i=0; i<traversed.length; i++) {
-        System.out.print(traversed[i]);
-      }
-      System.out.println("WHILE");
+
 
       Node min = minHeap.extract_min();
-      System.out.println("POP"+min.index + ": " + min.weight);
+
       if(!traversed[min.index]) {
-        System.out.println("HI");
         traversed[min.index] = true;
         total += min.weight;
-        System.out.println("Total: "+total);
         minHeap = randomize(minHeap, numpoints, traversed);
-        minHeap.print();
 
       }
 

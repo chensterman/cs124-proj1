@@ -55,38 +55,30 @@ public class MinHeap {
 
     // If the node is a non-leaf node and greater
     // than any of its child
-    System.out.println(pos);
-    System.out.println(isLeaf(pos));
-    if (!isLeaf(pos) ) {
-      System.out.println("senpai 1");
-      if (Heap[pos].weight > Heap[leftChild(pos)].weight || Heap[pos].weight > Heap[rightChild(pos)].weight) {
 
-        // Swap with the left child and heapify
-        // the left child
-        if (Heap[leftChild(pos)].weight < Heap[rightChild(pos)].weight) {
+    if (!isLeaf(pos) ) {
+
+      if ((leftChild(pos)<= size && Heap[pos].weight > Heap[leftChild(pos)].weight) || (rightChild(pos) <= size && Heap[pos].weight > Heap[rightChild(pos)].weight)) {
+
+        // Swap with the right child and heapify
+        // the right child
+
+        if (rightChild(pos)<=size && Heap[rightChild(pos)].weight < Heap[leftChild(pos)].weight) {
+          swap(pos, rightChild(pos));
+          minHeapify(rightChild(pos));
+        }
+        // // Swap with the left child and heapify
+        // // the left child
+        else {
           swap(pos, leftChild(pos));
           minHeapify(leftChild(pos));
         }
 
-        // Swap with the right child and heapify
-        // the right child
-        else {
-          swap(pos, rightChild(pos));
-          minHeapify(rightChild(pos));
-        }
+
       }
     }
 
-    // else {
-    //   System.out.println("pos: " + pos + " parent pos: " + parent(pos) + "pos weight: "+ Heap[pos].weight+ "parent pos weight : " +  Heap[parent(pos)].weight);
 
-    //   if(Heap[pos].weight < Heap[parent(pos)].weight) {
-    //     minHeap();
-    //     System.out.println("HELLLLLOOOOO");
-
-    //   }
-
-    // }
   }
 
   // Function to insert a node into the heap
@@ -96,9 +88,7 @@ public class MinHeap {
         if (index == Heap[i].index) {
           if (weight < Heap[i].weight) {
             Heap[i].weight = weight;
-            System.out.println("REPALCED");
             minHeap();
-            this.print();
             break;
           }
         }
@@ -109,7 +99,6 @@ public class MinHeap {
       if (size >= maxsize) {
         return;
       }
-      System.out.println("can i add" + index);
       Node newguy = new Node(index, weight);
       Heap[++size] = newguy;
       visited[index] = true;
@@ -143,7 +132,6 @@ public class MinHeap {
   public void minHeap() {
     for (int pos = (size / 2); pos >= 1; pos--) {
       minHeapify(pos);
-      System.out.println("AIYA " + pos);
     }
   }
 
