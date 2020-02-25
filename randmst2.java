@@ -15,28 +15,29 @@ public class randmst2 {
   public static double traverse_0 (int numpoints, int numtrials) {
     double total = 0;
 
-    
-    boolean[] traversed = new boolean[numpoints];
-    traversed[0] = true;
-    MinHeap minHeap = new MinHeap(); 
-    minHeap = randomize(minHeap, numpoints, traversed);
+    for(int i = 0; i < numtrials; i++){
+      boolean[] traversed = new boolean[numpoints];
+      traversed[0] = true;
+      MinHeap minHeap = new MinHeap(); 
+      minHeap = randomize(minHeap, numpoints, traversed);
 
- 
-    while (minHeap.size!=0) {
+  
+      while (minHeap.size!=0) {
 
 
-      Node min = minHeap.extract_min();
+        Node min = minHeap.extract_min();
 
-      if(!traversed[min.index]) {
-        traversed[min.index] = true;
-        total += min.weight;
-        minHeap = randomize(minHeap, numpoints, traversed);
+        if(!traversed[min.index]) {
+          traversed[min.index] = true;
+          total += min.weight;
+          minHeap = randomize(minHeap, numpoints, traversed);
+
+        }
 
       }
-
     }
     
-    return total;
+    return total / numtrials;
   }
 
   public static void traverse(int numpoints, int numtrials, int dimension) {
@@ -44,8 +45,8 @@ public class randmst2 {
   }
   public static void main(String[] arg) 
   { 
-      double total = traverse_0(8, 0);
-      System.out.println(total);
+      double averageWeight = traverse_0(100, 5);
+      System.out.println("Average weight:" + averageWeight);
 
   
 }
