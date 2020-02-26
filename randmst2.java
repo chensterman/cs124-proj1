@@ -92,7 +92,7 @@ public class randmst2 {
         }
 
       }
-      System.out.println("Trial " + i + ": " + total);
+      System.out.println("Trial " + (i + 1) + ": " + total);
     }
     
     return total / numtrials;
@@ -102,7 +102,11 @@ public class randmst2 {
       //double averageWeight = traverse_0(1000, 5);
       //System.out.println("Average weight:" + averageWeight);
 
+<<<<<<< HEAD
       double averageWeight = traverse(32768, 5, 2);
+=======
+      double averageWeight = traverse(32768, 5, 3);
+>>>>>>> 2bce65c030a297873aa21918339c572e1ad85a18
       System.out.println("Average weight:" + averageWeight);
 }
 }
