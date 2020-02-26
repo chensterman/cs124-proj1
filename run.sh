@@ -1,1 +1,1 @@
-java randmst.java
+java randmst3.java
