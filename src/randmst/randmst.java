@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class randmst3 {
+public class randmst {
     public static double calculateWeight(int currentIndex, int referenceIndex, int dimension, double[][] points){
         double d = 0.0;
         for(int k = 0; k < dimension; k++){
@@ -10,6 +10,9 @@ public class randmst3 {
         return d;
     }
     public static double traverse(int numpoints, int numtrials, int dimension){
+        if (dimension == 0) {
+          return traverse_0(numpoints, numtrials);
+        }
         double total = 0;
 
         for (int i = 0; i < numtrials; i++){
@@ -53,7 +56,7 @@ public class randmst3 {
                 }
 
                 total += min;
-                //System.out.println(min);
+                System.out.println(min);
                 keyWeight[minIndex] = -1.0;
                 referenceIndex = minIndex;
     
@@ -101,7 +104,7 @@ public class randmst3 {
             }
     
             total += min;
-            //System.out.println(min);
+            System.out.println(min);
             keyWeight[minIndex] = -1.0;
     
             traverseCounter++;
@@ -115,12 +118,15 @@ public class randmst3 {
         return total / numtrials;
       }
     
-    public static void main(String[] arg) 
+    public static void main(String[] args) 
     { 
           //double averageWeight = traverse_0(1000, 5);
           //System.out.println("Average weight:" + averageWeight);
     
-        double averageWeight = traverse(65536, 5, 2);
+        // double averageWeight = traverse_0(32, 5);
+        // double averageWeight = traverse(128, 5, 2);
+        double averageWeight = traverse(Integer.parseInt(args[1]), Integer.parseInt(args[2]), Integer.parseInt(args[3]));
+
         System.out.println("Average weight:" + averageWeight);
     }
 }
