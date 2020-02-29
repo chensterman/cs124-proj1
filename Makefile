@@ -11,7 +11,7 @@ randmst.class: randmst.java
   
 	@echo "Manifest-Version: 1.0" > manifest.txt
 	@echo "Class-Path: ." >> manifest.txt
-	@echo "Main-Class: randmst.class" >> manifest.txt
+	@echo "Main-Class: randmst" >> manifest.txt
 	@echo "" >> manifest.txt
 
 	jar cfm myjar.jar manifest.txt $(classes)

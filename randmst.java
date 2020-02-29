@@ -117,4 +117,16 @@ public class randmst {
         
         return total / numtrials;
       }
+    
+    public static void main(String[] args) 
+    { 
+          //double averageWeight = traverse_0(1000, 5);
+          //System.out.println("Average weight:" + averageWeight);
+    
+        // double averageWeight = traverse_0(32, 5);
+        // double averageWeight = traverse(512, 5, 4);
+        double averageWeight = traverse(Integer.parseInt(args[1]), Integer.parseInt(args[2]), Integer.parseInt(args[3]));
+
+        System.out.println("Average weight:" + averageWeight);
+    }
 }

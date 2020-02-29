@@ -1,6 +1,2 @@
 #!/bin/bash
-<<<<<<< HEAD
-java randmst.java $1 $2 $3 $4
-=======
 java -jar myjar.jar $1 $2 $3 $4
->>>>>>> 0d523b047b2e9b25f96d2edb3f92d26d382b1f77
