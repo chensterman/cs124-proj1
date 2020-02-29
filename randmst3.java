@@ -120,7 +120,7 @@ public class randmst3 {
           //double averageWeight = traverse_0(1000, 5);
           //System.out.println("Average weight:" + averageWeight);
     
-        double averageWeight = traverse_0(32, 5);
+        double averageWeight = traverse(65536, 5, 2);
         System.out.println("Average weight:" + averageWeight);
     }
 }
