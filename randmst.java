@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class randmst3 {
+public class randmst {
     public static double calculateWeight(int currentIndex, int referenceIndex, int dimension, double[][] points){
         double d = 0.0;
         for(int k = 0; k < dimension; k++){
