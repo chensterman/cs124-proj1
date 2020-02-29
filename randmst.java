@@ -1,172 +1,132 @@
 import java.util.*;
-import java.lang.*;
-import java.io.*;
 
+public class randmst3 {
+    public static double calculateWeight(int currentIndex, int referenceIndex, int dimension, double[][] points){
+        double d = 0.0;
+        for(int k = 0; k < dimension; k++){
+          d += (points[currentIndex][k] - points[referenceIndex][k]) * (points[currentIndex][k] - points[referenceIndex][k]);
+        }
+        d = Math.sqrt(d);
+        return d;
+    }
+    public static double traverse(int numpoints, int numtrials, int dimension){
+        if (dimension == 0) {
+          return traverse_0(numpoints, numtrials);
+        }
+        double total = 0;
 
-public class randmst{
+        for (int i = 0; i < numtrials; i++){
 
+            Random rand1 = new Random();
+            double[][] points = new double[numpoints][dimension];
+            for (int k = 0; k < dimension; k++){
+                points[0][k] = rand1.nextDouble();
+            }
+            int referenceIndex = 0;
 
-    static boolean[] inserted = new boolean[10];
-    // Node  
-    static class Node {  
-        int index;  
-    
-        // Lower values indicate higher priority  
-        int weight;  
-    
-        Node next;  
-    
-    } 
-  
-    static Node node = new Node(); 
-    
-// Function to Create A New Node  
-    static Node newNode(int d, int w)  
-    {  
-        Node temp = new Node();  
-        temp.index = d;  
-        temp.weight = w;  
-        temp.next = null;  
-        inserted[d] = true;
+            double[] keyWeight = new double[numpoints];
+            for (int k = 1; k < numpoints; k++){
+                keyWeight[k] = Double.MAX_VALUE;
+            }    
+            keyWeight[0] = -1.0;
 
-        return temp;  
-    }  
-    
-    // Return the value at head  
-    static int peek(Node head)  
-    {  
-        return (head).weight;  
-    }  
-        
-    // Removes the element with the  
-    // highest priority form the list  
-    static Node pop(Node head)  
-    {  
-        System.out.println("hiii"+ head.index);
-        Node temp = head;  
-        (head)  = (head).next;  
+            int traverseCounter = 1;
+            while (true) {
+                double min = Double.MAX_VALUE;
+                int minIndex = -1;
 
-        return head; 
-    }    
-        
-    // Function to push according to priority  
-    static Node push(Node head, int d, int w)  
-    {  
-        if(inserted[d] == true) {
-            Node check = head;
-            while(check.next != null) {
-                if(check.index == d) { 
-                    System.out.println("HIIIII");
-                    if(w < check.weight) {
-                        check.weight = w;
-                        System.out.println("HI!!");
-                        break;
+                for (int j = 0; j < numpoints; j++){
+                    if (keyWeight[j] != -1.0){
+                        for (int l = 0; l < dimension; l++){
+                            Random rand = new Random();
+                            double rn = rand.nextDouble();
+                            points[j][l] = rn;
+                        }
+
+                        double d = calculateWeight(j, referenceIndex, dimension, points);
+                        if (keyWeight[j] > d){
+                            keyWeight[j] = d;
+                        }
+                          
+                        if (keyWeight[j] < min){
+                            min = keyWeight[j];
+                            minIndex = j;
+                        }
                     }
                 }
-                check = check.next;
+
+                total += min;
+                System.out.println(min);
+                keyWeight[minIndex] = -1.0;
+                referenceIndex = minIndex;
+    
+                traverseCounter++;
+                if (traverseCounter == numpoints){
+                  break;
+                }
+                
             }
-            System.out.println(check.index + ":" + check.weight);
-            return check;
-        }
-
-        inserted[d] = true;
-        System.out.println(d);
-
-        Node start = (head);  
-        
-        // Create new Node  
-        Node temp = newNode(d, w);  
-        
-        // Special Case: The head of list has lesser  
-        // priority than new node. So insert new  
-        // node before head node and change head node.  
-        if ((head).weight > w) {  
-        
-            // Insert New Node before head  
-            temp.next = head;  
-            (head) = temp;  
-        }  
-        else {  
-        
-            // Traverse the list and find a  
-            // position to insert new node  
-            while (start.next != null &&  
-                start.next.weight < w) {  
-                start = start.next;  
-            }  
-        
-            // Either at the ends of the list  
-            // or at required position  
-            temp.next = start.next;  
-            start.next = temp;  
-        }  
-
-        return head; 
-    }  
-
-    // Function to check is list is empty  
-    static int isEmpty(Node head)  
-    {  
-        return ((head) == null)?1:0;  
-    }     
-    
-    
-    public static void traverse(int numpoints, int numtrials, int dimension) {
-        //generate
-        Random rand = new Random(); //instance of random class
-
-        if (dimension == 0) {
-            // int num = numpoints * (numpoints - 1) / 2 ;
-            // double[] edges = new double[num - 1];
-        
-            // for (int i = 0; i < num; i++) {
-            //     //AHHHHHH (inclusive?)
-            //     edges[i]=rand.nextDouble();
-            //     System.out.println(i + ":" + edges[i]);
-            // }
+            System.out.println("Trial " + (i + 1) + ": " + total);
             
-            boolean[] visited = new boolean[numpoints];
-
-            Node pq = newNode(4, 4);  
-            pq = push(pq, 5, 3);  
-            pq = push(pq, 6, 2);  
-            pq = push(pq, 5, 0);  
-
-            while (isEmpty(pq)==0) {  
-                System.out.printf("%d ", peek(pq));  
-                pq=pop(pq);  
-            }  
-
-           
-        
-
-
-
-
         }
-
-
-        else {
-            double[] vertices = new double[numpoints * dimension];
-
-            for (int i = 0; i < vertices.length; i++) {
-                //AHHHHHH (inclusive?)
-                vertices[i]=rand.nextDouble();
-                System.out.println(vertices[i]);
-            }
-             //traverse
-        }
-      
-
-       
-
-
+        return total/numtrials;
     }
 
+    public static double traverse_0(int numpoints, int numtrials) {
+        double total = 0;
     
+        for(int i = 0; i < numtrials; i++){
+          
+          double[] keyWeight = new double[numpoints];
+          for (int k = 1; k < numpoints; k++){
+            keyWeight[k] = Double.MAX_VALUE;
+          }
+          keyWeight[0] = -1.0;
+      
+          int traverseCounter = 1;
+          while (true) {
+            double min = Double.MAX_VALUE;
+            int minIndex = -1;
+            
+            for(int j = 1; j < numpoints; j++){
+              if(keyWeight[j] != -1.0) {
+                Random rand = new Random();
+                double rn = rand.nextDouble();
+                if (keyWeight[j] > rn){
+                  keyWeight[j] = rn;
+                }
+                
+                if (keyWeight[j] < min){
+                  min = keyWeight[j];
+                  minIndex = j;
+                }
+              }
+            }
     
-    public static void main(String[] args){
-        traverse(262144, 1, 0);
+            total += min;
+            System.out.println(min);
+            keyWeight[minIndex] = -1.0;
+    
+            traverseCounter++;
+            if (traverseCounter == numpoints){
+              break;
+            }
+          }
+          System.out.println("Trial " + (i + 1) + ": " + total);
+        }
+        
+        return total / numtrials;
+      }
+    
+    public static void main(String[] args) 
+    { 
+          //double averageWeight = traverse_0(1000, 5);
+          //System.out.println("Average weight:" + averageWeight);
+    
+        // double averageWeight = traverse_0(32, 5);
+        // double averageWeight = traverse(128, 5, 2);
+        double averageWeight = traverse(Integer.parseInt(args[1]), Integer.parseInt(args[2]), Integer.parseInt(args[3]));
 
+        System.out.println("Average weight:" + averageWeight);
     }
 }
